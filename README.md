@@ -89,7 +89,7 @@ The following script receives the data gathered by the producer, polishes the da
 
 The consumer script presented in the following example runs on a Web browser and works as an observer, showing the data gathered by the sensors. The script includes a JavaScript file that takes care of interacting with the `HTML` elements created in the operator, by updating the graph each time a new message arrives. The following image shows part of the `HTML` page of a consumer.
 
-![image](/Users/masiar/Desktop/wls_consumer3.png =600x200)
+![image](wls_consumer3.png =600x200)
 
 While the following piece of code represents a consumer.
 
