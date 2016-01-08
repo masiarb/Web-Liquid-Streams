@@ -1,0 +1,15 @@
+//import WLS/libraries
+var k = require('./../k_globals/koala.js');
+var ws = require("ws");
+
+//create a websocket server
+var wss = new ws.Server({'port': 15000});
+
+wss.on('connection', function(socket){
+	console.log("new connection");
+	
+	socket.on("message", function(data){
+		console.log(data);
+	});
+});
+

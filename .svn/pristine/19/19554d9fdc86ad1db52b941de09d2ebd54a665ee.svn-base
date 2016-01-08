@@ -1,0 +1,19 @@
+//import WLS
+var k = require('./../k_globals/koala.js');
+
+
+var i = 0;
+var interval = setInterval(function(){
+	console.log("calling set");
+	k.stateful.set("tdb", {"index": i}, function(){
+		console.log("saved " + i);
+		i++;
+	});
+	
+	if(i > 3){
+		console.log("calling get");
+		k.stateful.get("tdb", function(res){
+			console.log("got : " + res);
+		});
+	}
+}, 1000);

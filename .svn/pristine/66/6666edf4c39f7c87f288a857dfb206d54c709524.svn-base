@@ -1,0 +1,17 @@
+//import WLS
+var k = require('./../k_globals/koala.js');
+
+//create the Worker callback function
+var i = 0;
+var interval = setInterval(function(){
+	if(i%2 == 0){
+		k.stateful.set("prova", i, function(res){
+			console.log("set " + i + " in the database, that returns: " + res);
+		});
+	}
+	else {
+		k.stateful.get("prova", function(res){
+			console.log("got result from db: " + res);
+		});
+	}
+}, 1000);

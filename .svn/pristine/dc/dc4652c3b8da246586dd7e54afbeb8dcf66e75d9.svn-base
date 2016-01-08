@@ -1,0 +1,106 @@
+<!-- <html>
+    <head>
+        <title>Web Liquid Streams</title>        
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        </head>
+    <body>
+        <div class="container">
+        <div id="__koala_container" style="height: 100%; overflow: scroll;" class="col-md-6">
+
+                </div>
+            <div class="row">
+            	
+            
+                <div id="__paths" style="height: 100%; overflow: scroll;" class="col-md-6"> 
+                    
+                </div>
+            </div>
+        </div>
+    
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        
+        <script src="/js/datachannel.js"></script>
+        <script src="/js/battery.js"></script>
+        <script src="/js/wrtc.js"></script>
+		<script src="/js/peer.js"></script>
+
+        <script src="/js/statistics.js"></script>
+
+		<script src="/nowjs/now.js"></script>		
+        <script src="/js/koala_bootloader.js"></script>
+    </body>
+    
+    
+</html> -->
+
+<html>
+    <head>
+        <title>Web Liquid Stream</title>        
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class = "row" style="display:none;">
+                <button type="button" class="btn btn-default btn-lg" onclick="console.log('override');controller.onBattery();console.log('done')">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Battery
+                </button>
+                 <button type="button" class="btn btn-default btn-lg" onclick="console.log('override');onCPUButton();console.log('done')">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> CPU
+                </button>
+                <button type="button" class="btn btn-default btn-lg" onclick="console.log('override');onCPUButtonOverride();console.log('done')">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> CPU *
+                </button>
+            </div>
+<!--             <div class="row">   
+                <div id="__koala_container" style="height: 100%; overflow: scroll;" class="col-md-12">
+
+                </div>
+            </div> -->
+            <div class="row">
+                <div id="__header" style="overflow: scroll;" class="col-md-12"> 
+                    
+                </div>
+            </div>
+            <div id="__UI_important_infos" class="row" style="display:none;">
+                <div id="__important_infos" style="overflow: scroll;" class="col-md-12"> 
+                    
+                </div>
+            </div>
+            <div id="__UI_extended_infos" class="row" style="display:none;">
+                <div id="__infos" style="overflow: scroll;" style="height: 60%;" class="col-md-6"> 
+                    
+                </div>
+
+                <div id="__map" style="overflow: scroll;" style="height: 60%;" class="col-md-6"> 
+                    <div id="map_canvas" style="height: 60%;"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="__paths" style="height: 100%; overflow: scroll; display:none;" class="col-md-6"> 
+                    
+                </div>
+
+                <div id="__koala_container" style="height: 100%; overflow: scroll;" class="col-md-12">
+
+                </div>
+            </div>
+
+        </div>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClJLtOUFmffA6fp1tz5Bd_A92H6D_XB2Q"></script>
+
+        <script src="/js/sizeof.js"></script>
+        <script src="/js/chart.js"></script>
+        <script src="/js/peerjs.js"></script>
+
+        <script src="/nowjs/now.js"></script>       
+        <script src="/js/koala_bootloader.js"></script>
+        <script src="/js/koala_remote_controller.js"></script>
+    </body>
+    
+    
+</html>

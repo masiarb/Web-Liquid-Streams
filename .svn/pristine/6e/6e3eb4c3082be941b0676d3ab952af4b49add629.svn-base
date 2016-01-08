@@ -1,0 +1,11 @@
+var k = require('./../k_globals/koala.js')
+
+k.createNode(function(stream) {
+	console.log(stream)
+
+	k.send({
+		s: stream
+	})
+})
+
+k.registerProducer('producer')

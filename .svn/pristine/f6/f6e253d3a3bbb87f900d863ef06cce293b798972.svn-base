@@ -1,0 +1,36 @@
+{
+    "topology": {
+        "id": "test",
+        "operators": [
+            {
+                "id": "producer",
+                "script": "icwe_producer.js",
+                "automatic": false
+            },
+            {
+                "id": "filter",
+                "script": "icwe_f1.js"
+            },
+            {
+                "id": "consumer",
+                "script": "icwe_browser.js",
+                "browser": {
+                    "path" : "/consumer",
+                    "only" : true      
+                }
+            }
+        ],
+        "bindings": [
+            {
+                "from": "producer",
+                "to": "filter",
+                "type": "round_robin"
+            },
+            {
+                "from": "filter",
+                "to": "consumer",
+                "type": "round_robin"
+            }
+        ]
+    }
+}

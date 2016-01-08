@@ -1,0 +1,51 @@
+html
+	head
+		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js")
+	body
+		div#puzzle
+			- for (var i = 0; i < state.length; ++i) {
+				img(style="display: inline;", id="webcam"+i)
+			- }
+	
+			script
+				var path = "#{path}/refresh";
+				var previous;
+				
+				setInterval(function(){ 
+					xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange=function(){
+						if (xmlhttp.readyState==4 && xmlhttp.status==200){
+							
+							var webcams = JSON.parse(xmlhttp.responseText);
+							
+							var arraysOfIds = $('#puzzle').find('img').map(function(){
+								return this.id;
+							}).get();
+							
+							if(arraysOfIds.length < webcams.length){
+								//var img_tag_to_add = webcams.length - arraysOfIds.length;
+								var index = 0;
+								document.getElementById('puzzle').innerHTML = "";
+								for(var i = 0; i < webcams.length; i++){
+									document.getElementById('puzzle').innerHTML += "<img style='display: inline;' id='webcam"+index+"'></img>"
+									index++;
+									console.log("adding a webcam window");
+								}
+							}
+							
+							for(var i = 0; i < arraysOfIds.length; i++)
+								document.getElementById(arraysOfIds[i]).src = webcams[i];
+							
+							//time_measuring
+							var local_ts = new Date().getTime();
+
+							if(previous){
+								console.log("(PUZZLE) time from one msg to the other: " + (local_ts - previous));
+							}
+							previous = local_ts;
+						}
+					}
+					xmlhttp.open("GET", path, true);
+					xmlhttp.send();	
+				}, 500);
+				

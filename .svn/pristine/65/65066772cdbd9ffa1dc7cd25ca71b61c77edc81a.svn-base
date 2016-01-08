@@ -1,0 +1,108 @@
+//define the chart
+var lineChartData = {
+	labels : [],
+	datasets : [
+		{
+			label: "Temperature Data Set",
+			fillColor : "rgba(220,220,220,0.2)",
+			strokeColor : "rgba(220,220,220,1)",
+			pointColor : "rgba(220,220,220,1)",
+			pointStrokeColor : "#fff",
+			pointHighlightFill : "#fff",
+			pointHighlightStroke : "rgba(220,220,220,1)",
+			data : []
+		}
+	]
+
+}
+var updateInterval;
+var myLine;
+var myRealLine;
+var ctx = document.getElementById("canvas").getContext("2d");
+Chart.defaults.global.animation = false;
+Chart.defaults.global.showTooltips = false;
+
+myLine = new Chart(ctx);
+myRealLine = myLine.Line(lineChartData, {
+	responsive: true
+});
+
+var updateGraph = function(temperature, time) {
+	myRealLine.destroy();
+		 
+  //push newly received data (time & data)
+  lineChartData.datasets[0].data.push(temperature);
+  lineChartData.labels.push(time);
+
+  //if longer than 20, remove the first one
+  if(lineChartData.datasets[0].data.length > 20){
+    lineChartData.datasets[0].data.shift();
+    lineChartData.labels.shift();
+  }
+
+  //draw it
+  myLine.Line(lineChartData);
+  
+  //empty the content of the div
+  document.getElementById('newdata').setAttribute('temperature', "");
+  document.getElementById('newdata').setAttribute('time', "");
+}
+
+/*
+//define the function to setup the graph and check for new data every second
+var updateInterval;
+var myLine;
+var myRealLine;
+
+function start(){
+	var ctx = document.getElementById("canvas").getContext("2d");
+	
+	Chart.defaults.global.animation = false;
+	Chart.defaults.global.showTooltips = false;
+	
+	myLine = new Chart(ctx);
+	myRealLine = myLine.Line(lineChartData, {
+		responsive: true
+	});
+
+	//every second, check the hidden div's content
+	updateInterval = setInterval(
+		function(){
+		  //get the new data
+		  var temperature = document.getElementById('newdata').getAttribute('temperature');
+		  var time = document.getElementById('newdata').getAttribute('time');
+		  
+		  //if no data arrived, return
+		  if(temperature == "" || time == ""){
+		  	return;
+		  }
+		  
+		  //destroy line
+		  myRealLine.destroy();
+		  	
+		
+		  //push newly received data (time & data)
+		  lineChartData.datasets[0].data.push(temperature);
+		  lineChartData.labels.push(time);
+		
+		  //if longer than 20, remove the first one
+		  if(lineChartData.datasets[0].data.length > 20){
+		    lineChartData.datasets[0].data.shift();
+		    lineChartData.labels.shift();
+		  }
+		
+		  //draw it
+		  myLine.Line(lineChartData);
+		  
+		  //empty the content of the div
+		  document.getElementById('newdata').setAttribute('temperature', "");
+		  document.getElementById('newdata').setAttribute('time', "");
+	}, 250);
+}
+
+var test = function(x, y){
+	console.log(x, y);
+}
+
+start();
+*/

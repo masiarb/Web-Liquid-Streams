@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+   <head>
+<title> raspberry test </title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="koala_bootloader.js"></script>
+<script src="/nowjs/now.js"></script>	
+<script src="watch.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+var update_time = 3000;
+
+var temp_chart,
+	hum_chart;
+
+var rpi_temps = {};
+var	rpi_hums  = {};
+
+
+function notifyMe(rpiData){
+
+	if (!rpi_temps[rpiData.from]){
+			temp_chart.addSeries({name : 'rpi_' + Object.keys(rpi_temps).length, data : []})
+			hum_chart.addSeries({name : 'rpi_' + Object.keys(rpi_hums).length, data : []})
+	
+	}
+
+
+rpi_temps[rpiData.from] = rpiData.temperature
+rpi_hums[rpiData.from] =  rpiData.humidity
+
+}
+
+
+
+
+
+$(function () {
+    $(document).ready(function() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+    
+    
+        temp_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'temp_container',
+                type: 'spline',
+                marginRight: 10,
+                events: {
+                    load: function() {
+
+                        setInterval(function() {                        
+                            var x = (new Date()).getTime(); // current time
+                            if (temp_chart.series.length > 0){
+                            c = 0
+                            for (rpi in rpi_temps) {
+                            	temp_chart.series[c].addPoint([x, rpi_temps[rpi]], false, temp_chart.series[c].data.length > 20);
+								c++;				
+				}
+                            temp_chart.redraw();}
+                        }, update_time);
+                    }
+                }
+            },
+            title: {
+                text: 'Real Time Temperature Data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (C)'
+                },
+                gridLineWidth: 0,
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                    	enabled: true,
+                        radius: 4,
+                        lineColor: '#666666',
+                        lineWidth: 1
+                    },              
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: []
+        });
+        
+        
+         hum_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'hum_container',
+                type: 'spline',
+                marginRight: 10,
+                events: {
+                    load: function() {
+    
+                        // set up the updating of the chart each second
+                      
+                        
+                        setInterval(function() {                        
+                            var x = (new Date()).getTime(); // current time
+                            if ( hum_chart.series.length >0){
+                            c = 0
+                            for (rpi in rpi_hums) {
+                            	hum_chart.series[c].addPoint([x, rpi_hums[rpi]], false, hum_chart.series[c].data.length > 20);
+								c++;				
+					}
+				
+
+                            hum_chart.redraw();}
+                        }, update_time);
+                    }
+                }
+            },
+            title: {
+                text: 'Real Time Humidity Data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                
+            },
+            yAxis: {
+                title: {
+                    text: 'Humidity (%)'
+                },
+                gridLineWidth: 0,
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                    	enabled: true,
+                        radius: 4,
+                        lineColor: '#666666',
+                        lineWidth: 1
+                    },              
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: []
+        });
+        
+        
+        
+    });
+    
+});
+
+
+
+</script>
+
+</head>
+<body>
+
+
+<table style="width:100%"> <tr ><td style="text-align:center"><div id="temp_container" style="width:700px; height:300px; float:left;"></div></td>
+<td><div id="hum_container" style="width:700px; height:300px;"></div> </td> </tr></table>
+</body>
+
+</html>
+
+
+
+

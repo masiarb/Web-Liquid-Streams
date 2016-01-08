@@ -1,0 +1,4 @@
+var test = function(a, b) {
+	console.log('working: ' + a + ' ' + b)
+	return 'hello'
+}

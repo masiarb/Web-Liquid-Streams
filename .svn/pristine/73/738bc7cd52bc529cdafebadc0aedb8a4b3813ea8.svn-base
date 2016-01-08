@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Simple getUserMedia() test</title>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="koala_bootloader.js"></script>
+<script src="/nowjs/now.js"></script>
+      <script type="text/javascript">
+          window.onload = function () {
+              var shanpshot;
+              var video = document.getElementById('sourcevid');
+              var canvas = document.getElementById("canvas");
+              var ctx = canvas.getContext('2d');
+              ctx.drawImage(video, 0, 0, 100, 100);
+
+              var attrs = {"audio": true, "video": true, "toString": function() { return "audio, video";}};
+
+
+              navigator.webkitGetUserMedia(attrs, function (stream) {
+
+                        // stream_handler(stream)
+
+                        video.src = window.webkitURL.createObjectURL(stream);
+                        try{
+                                var pc = new PeerConnection()
+
+                                pc.addStream(stream);
+
+                                timer = setInterval(
+
+                                        function () {
+                                                //ctx.drawImage(video, 0, 0, 100, 100);
+                                                snapshot = document.getElementsByTagName("img")[0];
+
+                                                ctx.drawImage(snapshot,0,0,100,100);
+                                                //stream_handler(canvas.toDataURL('image/png'));
+                                                document.getElementById("status").innerHTML = "done1"
+                                                        },
+                                                1);
+
+                                }
+
+                        catch(e){
+                                timer = setInterval(
+                                 function () {
+                                         ctx.drawImage(video, 0, 0, 100, 100);
+                                         stream_handler(canvas.toDataURL('image/png'));
+                                         document.getElementById("status").innerHTML = "done2"
+                                                }
+                                , 1);
+                                 }
+                });
+        };
+
+      </script>
+   </head>
+   <body>
+     <video id="sourcevid" autoplay>Put your fallback message here.</video>
+     <br>
+     <div id="status"> loading </div>
+     <br>
+	<canvas width="320" id="canvas" height="240" ></canvas>
+      
+   </body>
+</html>

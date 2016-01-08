@@ -1,0 +1,19 @@
+//import WLS/libraries
+var k = require('./../k_globals/koala.js');
+var http = require('http');
+var server = http.createServer();
+var sio = require('socket.io');
+
+server.listen(15000, function(){
+  console.log('listening on *:15000');
+});
+var io = sio.listen(server, { 'destroy upgrade': false });
+//create a websocket server
+io.sockets.on('connection', function(socket){
+    socket.emit('message', {'message': 'hello world'});
+    
+    socket.on('tessel-data', function(data){
+    	console.log("tessel-data received: " + JSON.stringify(data));
+  	});
+});
+

@@ -1,0 +1,5 @@
+====UNDER UNIX====
+Rename binding_unix.gyp to binding.gyp.
+
+====UNDER MAC====
+Use binding.gyp.

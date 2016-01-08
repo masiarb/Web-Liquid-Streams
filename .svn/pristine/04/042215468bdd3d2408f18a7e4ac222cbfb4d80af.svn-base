@@ -1,0 +1,90 @@
+//import WLS
+var k = require('./../k_globals/koala.js');
+
+//create the Worker callback function
+var i = 0;
+var interval = setInterval(function(){
+	//GET - SET
+	
+	/*var toStore = {
+		"index" : i
+	};
+	if(i%2 == 0){
+		set("provaObject", toStore, function(i, res){
+			console.log("set " + JSON.stringify(i) + " in the database, that returns: " + res);
+		});
+	}
+	else {
+		k.stateful.get("provaObject", function(res){
+			console.log("got result from db: " + JSON.stringify(res));
+		});
+	}
+	*/
+	
+	
+	//INCR
+	/*k.stateful.incr("provaincr", function(res){
+		console.log(res);
+	});*/
+	
+	//DECR
+	/*k.stateful.decr("provadecr", function(res){
+		console.log(res);
+	});*/
+	
+	//addToSortList (ZADD)
+	k.stateful.addToSortList("provaZADDoggetti", [i-1, {"ciao" : i-1} , i-2, {"ciao ciao" : i-2}, i-3, {"ciao ciao ciao" : i-3}], function(res){
+		console.log(res);
+	});
+	
+	/*
+	k.stateful.getRangeSortList("provaZADD", 0, -1, false, function(res){
+		console.log(res);
+	});*/
+	
+	/*k.stateful.incrBySortList("myzset", 1, "two", function(res){
+		console.log("incrBySortList result: "  + res);
+	});*/
+	
+	
+	k.stateful.lpush("lista", {"ciao" : i}, function(res){
+		console.log(res);
+	});
+	
+	k.stateful.lrange("lista", 0, -1, function(res){
+		console.log(res);
+	});
+	
+	i++;
+}, 1000);
+
+//closure
+var set = function(key, value, cb){
+	k.stateful.set(key, value, function(res) { cb(value, res) });
+}
+
+/*
+	What has been tested as DB Functionalities using "redis" and not "thunk-redis":
+	
+	k.stateful.set(key, value, cb(res){}) --> storest a value on a key, the callback res should be "OK" if everything was ok
+	
+	k.stateful.get(key, cb(value){}) --> retrieves the value stored at the given key, the callback has as argument the value
+	
+	k.stateful.incr(key, cb(result){}) -->  increments the value stored at the given key, if it's not an integer, throws error
+											if the key holds nothing, it will start by 0.
+	k.stateful.decr(key, cb(result){}) -->  decrements the value stored at the given key, if it's not an integer, throws error
+											if the key holds nothing, it will start by 0.
+										 
+	k.stateful.addToSortList(key, [elements], cb(res){}) --> Adds the elements specified in the array at the key where a sorted list is stored.
+															 elements should be in the form [value, "element", value, "element", ...]
+	
+	k.stateful.getRangeSortList(setName, range_start, range_end, showValue, cb(res){}) --> returns the sortlist stored at "setName" with range from range_start
+															to range_end. If showValue is true, the values associated with the elements is shown, otherwise
+															it will not be shown.
+															
+	k.stateful.incrBySortList(setName, increment, key, cb(res){}) --> increments the value associated with the passed key in the setName by the given increment value.
+	
+	
+	
+	
+*/

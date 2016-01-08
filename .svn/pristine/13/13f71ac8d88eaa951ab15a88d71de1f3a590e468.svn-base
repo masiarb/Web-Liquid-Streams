@@ -1,0 +1,16 @@
+//import WLS/libraries
+var k = require('./../k_globals/koala.js');
+var ws = require("nodejs-websocket");
+
+//create a websocket server
+var server = ws.createServer(function (conn) {
+    console.log("New connection");
+    conn.on("text", function (str) {
+        console.log("Received "+str);
+        conn.sendText(str.toUpperCase()+"!!!")
+    })
+    conn.on("close", function (code, reason) {
+        console.log("Connection closed");
+    })
+}).listen(15000)
+

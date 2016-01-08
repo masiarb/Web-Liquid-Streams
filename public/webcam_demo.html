@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Webcam Demo</title>
+        </head>
+    <body>
+        <video id="sourcevid" autoplay>Put your fallback message here.</video>
+        <canvas width="320" id="canvas" height="240" style="display: inline;"></canvas>
+        <div id="errorMessage"></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        
+        <script>
+            var canvas = $("#canvas");
+            var ctx = canvas.get()[0].getContext('2d');
+            video = document.getElementById('sourcevid');
+            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia; 
+            window.URL = window.URL || window.webkitURL;
+            ctx.drawImage(video, 0, 0, 320, 240);
+            function gotStream(stream) {
+                if (window.URL) {
+                    video.src = window.URL.createObjectURL(stream);
+                } else {
+                    video.src = stream; // Opera.
+                }
+                
+                timer = setInterval(
+                    function () {
+                        producer_handler(canvas.get()[0].toDataURL('image/png'));
+                        ctx.drawImage(video, 0, 0, 160, 120);
+                    }, 1000);
+
+                video.onerror = function(e) {
+                    stream.stop();
+                };
+
+                stream.onended = noStream;
+            }
+            
+            function noStream(e) {
+                var msg = 'No camera available.';
+                if (e.code == 1) {
+                    msg = 'User denied access to use camera.';
+                }
+                    document.getElementById('errorMessage').textContent = msg;
+            }
+
+
+            navigator.webkitGetUserMedia({video: true}, gotStream, noStream);       
+        </script> 
+
+        <script src="js/socket.io.js"></script>
+        <script src="js/datachannel.js"></script>
+        <script src="js/battery.js"></script>
+        <script src="js/wrtc.js"></script>
+		<script src="js/peer.js"></script>
+
+        <script src="js/statistics.js"></script>
+
+		<script src="/nowjs/now.js"></script>		
+        <script src="js/koala_bootloader.js"></script>
+    </body>
+</html>

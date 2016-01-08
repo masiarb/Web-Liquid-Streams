@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Rockin' Page</title>
+        </head>
+    <body>
+        <audio controls>
+          <source id="a1" src="">
+        </audio>
+        <div id="errorMessage"></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/recorder.js"></script>
+        <script type="text/javascript" src="js/recorderWorker.js"></script>
+
+        <script>
+            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia; 
+            window.URL = window.URL || window.webkitURL;
+
+            var audio = document.getElementById('a1');
+
+            function gotStream(stream) {
+                if (window.URL) {
+                    a1.src = window.URL.createObjectURL(stream);
+                } else {
+                    a1.src = stream; // Opera.
+                }
+                
+            }
+            
+            function noStream(e) {
+                var msg = 'No camera available.';
+                if (e.code == 1) {
+                    msg = 'User denied access to use camera.';
+                }
+                    document.getElementById('errorMessage').textContent = msg;
+            }
+
+
+            navigator.webkitGetUserMedia({audio: true}, gotStream, noStream) 
+        </script> 
+
+        <script src="js/socket.io.js"></script>
+        <script src="js/datachannel.js"></script>
+        <script src="js/battery.js"></script>
+        <script src="js/wrtc.js"></script>
+		<script src="js/peer.js"></script>
+
+        <script src="js/statistics.js"></script>
+
+		<script src="/nowjs/now.js"></script>		
+        <script src="js/koala_bootloader.js"></script>
+    </body>
+    
+    
+</html>

@@ -1,0 +1,28 @@
+//require WLS
+var k = require('./../k_globals/koala.js')
+
+//some remote functions to be defined
+var setDom = undefined;
+var getDom = undefined;
+if(isRemote) {
+	setDom = k.remoteSet();
+}
+
+
+//script of the operator
+k.createNode(function(polished_temperature_data) {
+	setDom("#newdata", "attr", "temperature", polished_temperature_data.temperature);
+	setDom("#newdata", "attr", "time", polished_temperature_data.time);
+	k.done();
+	k.callFunction("test", ["a", 666]);
+});
+
+//create the hidden div that will contain the received data
+k.createHTML('data', '<div id="newdata" style="display:none;"></div>');
+k.createHTML('canvas', '<canvas id="canvas" width="500px" height="500px"></canvas>');
+
+
+//add the graph script
+k.createScript('finland_graph', 'js/finland_graph.js');
+
+ 

@@ -1,0 +1,15 @@
+//import WLS
+var k = require('./../k_globals/koala.js');
+
+//create the Worker callback function
+k.createNode(function(data){
+
+  //if temperature increased, send it to fan
+  if(data.temperature > "30"){
+    k.send({"start": true});
+  }
+  else{
+    k.send({"start": false});
+  }
+
+});

@@ -1,0 +1,22 @@
+//import WLS
+var k = require('./../k_globals/koala.js');
+
+//sensor utilities
+var glob = require('glob'),
+   http = require('http'),
+   fs = require('fs'),
+   rpiDev = glob.sync('/sys/devices/w1_bus_master1/28-*/w1_slave')[0];
+
+and then just
+fs.readFile(rpiDev)
+
+//create an interval that gets data from the environment every second
+var envInterval = setInterval(function(){
+	//get data from the sensor and send it (TODO)
+	k.send(
+		{
+			//temperature : fs.readFile(rpiDev),
+			temperature : "10",
+			time : new Date().getTime(),
+		});
+}, 1000);

@@ -1,0 +1,32 @@
+{
+	"topology" : {
+		"id" : "davide-test-01",
+		"operators" : [
+			{
+				"id" : "tp",
+				"script" : "tp.js"
+			},
+			{
+				"id" : "tf",
+				"script" : "tf.js"
+			},
+			{
+				"id" : "tc",
+				"script" : "tc.js"
+			}
+		],
+		"bindings" : [
+			{
+				"from" : "tf",
+				"to" : "tc",
+				"type" : "send_partition"
+
+			},
+			{
+				"from" : "tp",
+				"to" : "tf",
+				"type" : "send_partition"
+			}
+		]
+	}
+}

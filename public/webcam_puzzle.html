@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Rockin' Page</title>
+        </head>
+    <body>
+        <div id="webcams"></div>
+        
+        
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script>
+            var host = 'http://agora.mobile.usilu.net:6969/puzzle/refresh'
+            var ajaxInterval
+
+            $(document).ready(function() {
+                ajaxInterval = setInterval(function(){ajaxCall()}, 1000)
+            })
+
+            var ajaxCall = function() {
+                $.ajax({
+                  url: host,
+                  context: document.body,
+                  crossDomain: true
+                }).done(function(data) {
+                  $('#webcams').html('')
+                  var s = ""
+                  for(var index in data) {
+                    // var image = new Image();
+                    // image.id = "pic_" + i
+                    // image.src = data[i];
+                    s = s + '<img id="theImg' + index + '" src="' + data[index] + '" />'
+                  }
+                  $('#webcams').prepend(s)
+                });
+            }
+
+        </script>
+    </body>
+    
+    
+</html>

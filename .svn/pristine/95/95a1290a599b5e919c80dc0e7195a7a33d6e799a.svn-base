@@ -1,0 +1,31 @@
+/**
+ * COUNTER
+ * Simple producer that sends 1 message per second.
+ * The message contains an increasing counter. This
+ * script can be used to test for data loss with 
+ * particularly complex configurations.
+ */
+
+
+var k = require('./../k_globals/koala.js') 
+var count = 0;
+ 
+var interval = setInterval(function() {
+	//if(count <= 0)
+	k.sendTo(JSON.stringify(
+		{
+			'count'      : count,
+			'start_date' : new Date().getTime(),
+			'who shall receive' : 1
+		}
+	), 1);
+	
+	k.sendTo(JSON.stringify(
+		{
+			'content' : "number 2 stinks!",
+			'who shall receive' : 2
+		}
+	), 2);
+	
+	count++;
+ }, 1000);

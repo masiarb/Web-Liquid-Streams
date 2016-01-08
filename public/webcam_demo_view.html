@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Rockin' Page</title>
+        </head>
+    <body>
+        <div style="visibility: hidden" id="images"></div>
+        <div id="list"></div>
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ccv.js"></script>
+        <script type="text/javascript" src="js/face.js"></script>
+        <script type="text/javascript" src="js/facedetection.js"></script>
+
+        <script>
+
+        var timeout
+
+        $(document).ready(function(){
+            timeout = setInterval(function(){update()}, 1000)
+        })
+
+        var update = function() {
+            var s = $('#images').html()
+            var imgs = JSON.parse(s)
+
+            var tags = ''
+            $('#list').html('')
+            for(var index in imgs) {
+                tags = tags + '<img id="theImg' + index + '" src="' + imgs[index] + '" />'
+            }
+            $('#list').prepend(tags)
+        }
+                
+        </script> 
+
+        <script src="js/socket.io.js"></script>
+        <script src="js/datachannel.js"></script>
+        <script src="js/battery.js"></script>
+        <script src="js/wrtc.js"></script>
+		<script src="js/peer.js"></script>
+
+        <script src="js/statistics.js"></script>
+
+		<script src="/nowjs/now.js"></script>		
+        <script src="js/koala_bootloader.js"></script>
+    </body>
+    
+    
+</html>

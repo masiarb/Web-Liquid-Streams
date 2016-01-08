@@ -1,0 +1,22 @@
+ var mapOptions = {
+ 	 center: { lat: -34.397, lng: 150.644},
+     zoom: 1
+};
+
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
+
+var addMarker = function(c,t,color,location) {
+	// console.log(t)
+	if(location.geonames.length > 0) {
+		var loc = location.geonames[0]
+
+		console.log(location.geonames[0])
+		console.log(loc.lat + " " + loc.lng)
+
+		var marker = new google.maps.Marker({
+	     	position: new google.maps.LatLng(loc.lat, loc.lng),
+	     	map: map,
+	    	title: t.text
+	  	});
+	}
+}

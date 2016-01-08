@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Rockin' Page</title>
+        </head>
+    <body>
+        <img width="320" height="240" id="img1"></img>
+        <canvas width="320" height="240" id="img2"></canvas>
+        <input id="inputTest" style="visibility:hidden" value="0"></input>
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ccv.js"></script>
+        <script type="text/javascript" src="js/face.js"></script>
+        <script type="text/javascript" src="js/facedetection.js"></script>
+
+        <script>
+            var timeout
+
+            $(document).ready(function(){
+                timeout = setInterval(function(){recognition()}, 1000)
+            })
+
+            var recognition = function() {
+                var c = $("#img1").faceDetection({
+                    complete: function(image, coords) {
+                        var canvas = document.getElementById("img2")
+                        var ctx = canvas.getContext("2d");
+                        var image = document.getElementById("img1")
+                        ctx.drawImage(image, 0, 0);
+                        for(var i = 0; i < coords.length; i++) {
+                           ctx.beginPath();
+                           ctx.rect(coords[i].x, coords[i].y, coords[i].width, coords[i].height);
+                           ctx.lineWidth = 3;
+                           ctx.strokeStyle = 'white';
+                           ctx.stroke();
+                        }
+
+                        $('#inputTest').val(JSON.stringify({data: canvas.toDataURL('image/jpeg')}))
+                    },
+                    error: function(img, code, message) {
+                        console.warn(img);
+                        console.warn(code);
+                        console.warn(message);
+                    }
+                });
+            }
+
+                
+        </script> 
+
+        <script src="js/socket.io.js"></script>
+        <script src="js/datachannel.js"></script>
+        <script src="js/battery.js"></script>
+        <script src="js/wrtc.js"></script>
+		<script src="js/peer.js"></script>
+
+        <script src="js/statistics.js"></script>
+
+		<script src="/nowjs/now.js"></script>		
+        <script src="js/koala_bootloader.js"></script>
+    </body>
+    
+    
+</html>

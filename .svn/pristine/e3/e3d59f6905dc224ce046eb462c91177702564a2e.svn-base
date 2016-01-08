@@ -1,0 +1,43 @@
+var k = require('./../k_globals/koala.js')
+var http = require('http')
+
+var places = ["Iran", "Houston", "Malaysia"]
+
+k.createNode(function(msg, uid, options) {
+	console.log(msg)
+	k.send({
+		c: undefined,
+		t: undefined,
+		color: undefined,
+		location: undefined 
+	})
+})
+
+var sendRequest = function(name, msg){
+	// k.log('Filter new message')
+
+	// var options = {
+	// 	host: "api.geonames.org",
+	// 	path: '/searchJSON?username=agallidabino&maxRows=1&name=' + name,
+	// }
+
+	// var req = http.get(options, function(res) {
+	// 	var str = ''
+	// 	res.on('data', function (chunk) {
+	//  		str += chunk;
+	//  	});
+
+	// 	res.on('end', function () {
+	// 		 k.send({
+	// 			c: msg.c,
+	// 			t: msg.t,
+	// 			color: "red",
+	// 			location: JSON.parse(str) 
+	// 		}) 
+	// 	});
+	// })
+
+	// console.log(name)
+}
+
+k.log('ICWE filter2 started')

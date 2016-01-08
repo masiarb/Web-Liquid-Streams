@@ -1,0 +1,24 @@
+var k = require('./../k_globals/koala.js')
+
+k.createNode(function(msg, uid, options) {
+	var c = msg.c
+	var t = msg.t
+	var color = msg.color
+	var location = msg.location
+	
+	console.log(c)
+	console.log(t)
+	console.log(color)
+	console.log(location) 
+
+	k.callFunction('test', [1, "ciao"])
+
+	k.done()
+})
+
+k.createHTML('data', '<div id="newdata" style="display:none;"></div>');
+k.createHTML('canvas', '<canvas id="canvas" width="500px" height="500px"></canvas>');
+
+
+//add the graph script
+k.createScript('finland_graph', 'js/finland_graph.js');

@@ -1,0 +1,13 @@
+/**
+ * New node file
+ */
+
+var k = require('./../k_globals/koala.js')
+var i = 0;
+
+setTimeout(function() {
+	console.log("timeout");
+	k.send({"counter" : i});
+	i++;
+		
+}, 1000);
