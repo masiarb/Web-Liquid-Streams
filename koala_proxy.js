@@ -291,11 +291,6 @@ var wsMessage = function(ws, data, flags) {
 		//unfortunately this check here is needed because the asynchronous behaviour can lead
 		//to connecting while checking for connection, thus leading to messages never leaving
 		//the setupqueue array
-<<<<<<< .mine
-		console.log("recipients: " + recipients);
-=======
-		//console.log(recipients);
->>>>>>> .r5194
 		if(setupQueue[message.from]){
 			for(var queue_m = 0; queue_m < setupQueue[message.from].length; queue_m++){
 				//console.log("proxy received a message type=incoming_message from a browser, it found something in the setupqueue so its trying to send it");
